@@ -10,8 +10,11 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
         body {
-            font-family: 'Inter', 'ZCOOL XiaoWei', sans-serif;
-            -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮 */
+            font-family: 'Inter', sans-serif; /* 正文优先使用 Inter 字体 */
+            -webkit-tap-highlight-color: transparent;
+        }
+        .font-title {
+            font-family: 'ZCOOL XiaoWei', cursive; /* 标题专用字体 */
         }
         .fade-in {
             animation: fadeInAnimation 0.5s ease-in forwards;
@@ -36,17 +39,13 @@
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
-        /* 3D模型查看器样式 */
+        /* 3D模型查看器样式 - 优化移动端高度 */
         model-viewer {
             width: 100%;
-            height: 300px;
+            height: 55vh; /* 增加高度以获得更沉浸的体验 */
             background-color: #e0f2fe; /* sky-100 */
             border-radius: 0.5rem;
         }
@@ -71,16 +70,16 @@
 
     <div class="w-full max-w-sm mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-gray-800">
         <!-- 封面页 -->
-        <div id="cover-page" class="p-8 text-center bg-sky-200 flex flex-col items-center justify-center h-[80vh] min-h-[500px]">
-            <h1 class="text-3xl font-bold text-gray-800" style="font-family: 'ZCOOL XiaoWei', cursive;">🚽 小韩的魔法课堂</h1>
-            <p class="text-xl text-gray-700 mt-2">【我要学会上厕所】</p>
+        <div id="cover-page" class="p-8 text-center bg-sky-200 flex flex-col items-center justify-center h-screen">
+            <h1 class="text-3xl font-bold text-gray-800 font-title">🚽 小韩的魔法课堂</h1>
+            <p class="text-xl text-gray-700 mt-2 font-title">【我要学会上厕所】</p>
             <div class="my-8">
                 <svg class="w-40 h-40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#FFFFFF" d="M57.8,-52.9C72.2,-36.7,79.4,-18.3,79.4,0C79.4,18.4,72.2,36.8,57.8,53.1C43.4,69.4,21.7,83.6,-1.7,85.1C-25.1,86.6,-50.2,75.4,-64.8,57.2C-79.4,39,-83.5,13.8,-79.8,-9.6C-76.1,-33,-64.6,-54.6,-48.2,-69.1C-31.8,-83.6,-15.9,-91.1,1.1,-92.3C18.1,-93.5,36.2,-88.7,57.8,-52.9Z" transform="translate(100 100)" />
                     <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="80">🐰</text>
                 </svg>
             </div>
-            <button id="start-button" class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 btn-pulse">
+            <button id="start-button" class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 btn-pulse font-title">
                 ✨ 点这里开始魔法课 ✨
             </button>
         </div>
@@ -88,7 +87,7 @@
         <!-- 主内容区 -->
         <div id="main-content" class="hidden">
             <header class="bg-gray-800 p-4 text-center">
-                <h1 class="text-xl font-bold text-white" style="font-family: 'ZCOOL XiaoWei', cursive;">🚽 我要学会上厕所</h1>
+                <h1 class="text-xl font-bold text-white font-title">🚽 我要学会上厕所</h1>
             </header>
 
             <!-- 导航栏 -->
@@ -104,12 +103,12 @@
                 <div id="learning-content" class="tab-content fade-in">
                     <div class="bg-white rounded-lg shadow p-4 text-center">
                         <div id="animation-display" class="w-full h-48 bg-sky-100 rounded-lg flex items-center justify-center text-6xl mb-4">🚽</div>
-                        <h2 id="step-title" class="text-xl font-bold text-gray-800">步骤1: 认识厕所</h2>
+                        <h2 id="step-title" class="text-xl font-bold text-gray-800 font-title">步骤1: 认识厕所</h2>
                         <p id="step-text" class="text-gray-600 mt-1 mb-4">厕所是方便的地方，要学会自己去哦。</p>
                         <div class="flex items-center justify-center space-x-2 bg-yellow-100 p-2 rounded-full cursor-pointer" onclick="speak('Toilet')">
                             <span class="text-2xl">🚽</span>
-                            <span class="font-bold text-lg">Toilet</span>
-                            <span class="text-gray-500">(点我发音)</span>
+                            <span class="font-bold text-lg">Toilet <span class="text-sm font-normal text-gray-500">(tuō-lì)</span></span>
+                            <span class="text-gray-500 text-xs">(点我发音)</span>
                         </div>
                     </div>
                     <div class="grid grid-cols-3 gap-3 mt-4">
@@ -123,7 +122,7 @@
                 <div id="music-content" class="tab-content hidden fade-in">
                     <div class="bg-white rounded-lg shadow p-6 text-center">
                         <div class="text-6xl mb-4 animate-bounce">🎶</div>
-                        <h2 class="text-2xl font-bold text-gray-800 mb-2">上厕所儿歌</h2>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2 font-title">上厕所儿歌</h2>
                         <p class="text-gray-500 mb-6">点一下按钮，跟着音乐唱起来！</p>
                         <button id="music-toggle" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full shadow-lg text-2xl">▶️ 播放</button>
                     </div>
@@ -165,27 +164,28 @@
                           </button>
                       </model-viewer>
 
-                        <h2 class="text-xl font-bold text-gray-800 mt-4">AR 使用方法</h2>
+                        <h2 class="text-xl font-bold text-gray-800 mt-4 font-title">AR 使用方法</h2>
                         <p class="text-gray-600 mt-2 text-sm leading-relaxed">
                             1. 点击模型上的 <b>AR</b> 图标。<br>
                             2. 将手机摄像头对准您面前的平坦地面。<br>
-                            3. 轻轻移动手机，当看到小鸟时，点击屏幕将它放置在您的世界里！<br>
-                            4. <b>重要提示：</b>落地后，请<b>用双指在屏幕上放大</b>，把它变成您喜欢的大小！还可以拍照录屏分享！
+                            3. 轻轻移动手机，当看到小兔子时，点击屏幕将它放置在您的世界里！<br>
+                            4. <b>重要提示：</b>落地后，请<b>用双指在屏幕上放大</b>，把它变成您喜欢的大小！
                         </p>
                     </div>
                 </div>
                  <!-- 晚安故事按钮 -->
                 <div class="mt-6 text-center">
-                    <a href="./1.mp4" target="_blank" rel="noopener noreferrer" class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
-                        🌙 晚安故事
-                    </a>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 font-title">🌙 晚安故事</h3>
+                    <video id="bedtime-story-video" controls playsinline class="w-full rounded-lg shadow-lg" poster="https://placehold.co/600x400/6b21a8/ffffff?text=晚安故事">
+                        <source src="./1.mp4" type="video/mp4">
+                        您的浏览器不支持播放视频。
+                    </video>
                 </div>
             </main>
         </div>
     </div>
 
     <script>
-        // --- 脚本与上一版完全相同，无需修改 ---
         const coverPage = document.getElementById('cover-page');
         const mainContent = document.getElementById('main-content');
         const startButton = document.getElementById('start-button');
@@ -194,9 +194,9 @@
         const tabContents = document.querySelectorAll('.tab-content');
 
         let synth;
-        let musicPlaying = false;
-        let musicOscillator;
-        let audioContext;
+        // 音乐播放逻辑简化
+        const toiletSong = new Audio('./song.mp3');
+        toiletSong.loop = false; // 歌曲不循环
 
         const storybookPages = [
             { emoji: '😟', text: '小兔子肚子咕噜咕噜，但是他有点害怕去厕所。', bgColor: 'bg-red-100' },
@@ -207,8 +207,11 @@
         let currentPage = 0;
 
         document.addEventListener('DOMContentLoaded', () => {
-            try { synth = window.speechSynthesis; } catch (e) { console.error("Speech Synthesis not supported", e); }
-            try { audioContext = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { console.error("Web Audio API not supported", e); }
+            try { 
+                synth = window.speechSynthesis; 
+            } catch (e) { 
+                console.error("浏览器不支持语音合成功能。", e); 
+            }
             setupEventListeners();
             renderStorybookPage();
         });
@@ -228,6 +231,10 @@
                     tabContents.forEach(content => {
                         content.classList.toggle('hidden', content.id !== `${target}-content`);
                     });
+                    // 切换tab时暂停音乐和视频
+                    if (!toiletSong.paused) toiletSong.pause();
+                    document.getElementById('music-toggle').innerHTML = '▶️ 播放';
+                    document.getElementById('bedtime-story-video').pause();
                 });
             });
             
@@ -235,23 +242,46 @@
             document.getElementById('step-btn-2').addEventListener('click', () => updateLearningStep(2));
             document.getElementById('step-btn-3').addEventListener('click', () => updateLearningStep(3));
             document.getElementById('music-toggle').addEventListener('click', toggleMusic);
+            
+            // 监听儿歌播放结束事件，自动重置按钮
+            toiletSong.addEventListener('ended', () => {
+                document.getElementById('music-toggle').innerHTML = '▶️ 播放';
+            });
+
             document.getElementById('prev-page').addEventListener('click', () => changePage(-1));
             document.getElementById('next-page').addEventListener('click', () => changePage(1));
             document.getElementById('read-aloud').addEventListener('click', readCurrentPage);
         }
 
         function speak(text, lang = 'en-US') {
-            if (!synth) { alert('抱歉，您的浏览器不支持语音朗读功能。'); return; }
-            if (synth.speaking) { synth.cancel(); }
+            if (!synth) {
+                console.warn('语音朗读功能不可用。');
+                return;
+            }
+            if (synth.speaking) {
+                synth.cancel();
+            }
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = lang;
             utterance.pitch = 1.2;
             utterance.rate = 0.9;
+            utterance.onerror = (event) => {
+                console.error('语音合成发生错误:', event.error);
+            };
             synth.speak(utterance);
         }
         
+        // 短音效仍然可以使用 Web Audio API，因为它更即时且不易被打断
         function playSound(type) {
-            if (!audioContext) return;
+            // 为确保兼容性，仅在用户首次交互后创建 AudioContext
+            let audioContext;
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            } catch(e) {
+                console.error("Web Audio API is not supported in this browser.");
+                return;
+            }
+
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             oscillator.connect(gainNode);
@@ -301,30 +331,15 @@
             }
         }
 
+        // 简化的音乐播放/暂停函数
         function toggleMusic() {
-            if (!audioContext) { alert('抱歉，您的浏览器不支持音频播放。'); return; }
             const button = document.getElementById('music-toggle');
-            musicPlaying = !musicPlaying;
-
-            if (musicPlaying) {
+            if (toiletSong.paused) {
+                toiletSong.play();
                 button.innerHTML = '⏸️ 暂停';
-                const notes = [261, 261, 392, 392, 440, 440, 392, 349, 349, 329, 329, 293, 293, 261];
-                let noteTime = audioContext.currentTime;
-                musicOscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                musicOscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                gainNode.gain.value = 0.1;
-                notes.forEach(note => {
-                    musicOscillator.frequency.setValueAtTime(note, noteTime);
-                    noteTime += 0.4;
-                });
-                musicOscillator.start();
-                musicOscillator.stop(noteTime);
-                musicOscillator.onended = () => { if (musicPlaying) { musicPlaying = false; button.innerHTML = '▶️ 播放'; } };
             } else {
+                toiletSong.pause();
                 button.innerHTML = '▶️ 播放';
-                if (musicOscillator) { musicOscillator.stop(); }
             }
         }
 
