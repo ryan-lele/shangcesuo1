@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚽 小韩的魔法课堂 - 学会上厕所</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <!-- 引入 Google 的 3D 模型查看器 -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'ZCOOL XiaoWei', sans-serif;
+            -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮 */
+        }
+        .fade-in {
+            animation: fadeInAnimation 0.5s ease-in forwards;
+        }
+        @keyframes fadeInAnimation {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .hidden {
+            display: none;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #fcd34d; /* amber-300 */
+            color: #1f2937; /* gray-800 */
+            transform: translateY(-4px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        /* 3D模型查看器样式 */
+        model-viewer {
+            width: 100%;
+            height: 300px;
+            background-color: #e0f2fe; /* sky-100 */
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-amber-50 flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-sm mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-gray-800">
+        <!-- 封面页 -->
+        <div id="cover-page" class="p-8 text-center bg-sky-200 flex flex-col items-center justify-center h-[80vh] min-h-[500px]">
+            <h1 class="text-3xl font-bold text-gray-800" style="font-family: 'ZCOOL XiaoWei', cursive;">🚽 小韩的魔法课堂</h1>
+            <p class="text-xl text-gray-700 mt-2">【我要学会上厕所】</p>
+            <div class="my-8">
+                <svg class="w-40 h-40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#FFFFFF" d="M57.8,-52.9C72.2,-36.7,79.4,-18.3,79.4,0C79.4,18.4,72.2,36.8,57.8,53.1C43.4,69.4,21.7,83.6,-1.7,85.1C-25.1,86.6,-50.2,75.4,-64.8,57.2C-79.4,39,-83.5,13.8,-79.8,-9.6C-76.1,-33,-64.6,-54.6,-48.2,-69.1C-31.8,-83.6,-15.9,-91.1,1.1,-92.3C18.1,-93.5,36.2,-88.7,57.8,-52.9Z" transform="translate(100 100)" />
+                    <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="80">🐰</text>
+                </svg>
+            </div>
+            <button id="start-button" class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-4 px-8 rounded-full shadow-lg transform transition hover:scale-105 btn-pulse">
+                ✨ 点这里开始魔法课 ✨
+            </button>
+        </div>
+
+        <!-- 主内容区 -->
+        <div id="main-content" class="hidden">
+            <header class="bg-gray-800 p-4 text-center">
+                <h1 class="text-xl font-bold text-white" style="font-family: 'ZCOOL XiaoWei', cursive;">🚽 我要学会上厕所</h1>
+            </header>
+
+            <!-- 导航栏 -->
+            <nav class="flex justify-around bg-gray-100 p-2 shadow-inner">
+                <button data-tab="learning" class="tab-button active flex-1 py-2 px-2 rounded-full font-semibold text-xs">🧻 学习环节</button>
+                <button data-tab="music" class="tab-button flex-1 py-2 px-2 rounded-full font-semibold text-xs">🎶 上厕所儿歌</button>
+                <button data-tab="storybook" class="tab-button flex-1 py-2 px-2 rounded-full font-semibold text-xs">� 绘本故事</button>
+                <button data-tab="ar" class="tab-button flex-1 py-2 px-2 rounded-full font-semibold text-xs">🪄 AR魔法秀</button>
+            </nav>
+
+            <main class="p-4 bg-amber-50 min-h-[calc(100vh-128px)] sm:min-h-[450px]">
+                <!-- 学习环节 -->
+                <div id="learning-content" class="tab-content fade-in">
+                    <div class="bg-white rounded-lg shadow p-4 text-center">
+                        <div id="animation-display" class="w-full h-48 bg-sky-100 rounded-lg flex items-center justify-center text-6xl mb-4">🚽</div>
+                        <h2 id="step-title" class="text-xl font-bold text-gray-800">步骤1: 认识厕所</h2>
+                        <p id="step-text" class="text-gray-600 mt-1 mb-4">厕所是方便的地方，要学会自己去哦。</p>
+                        <div class="flex items-center justify-center space-x-2 bg-yellow-100 p-2 rounded-full cursor-pointer" onclick="speak('Toilet')">
+                            <span class="text-2xl">🚽</span>
+                            <span class="font-bold text-lg">Toilet</span>
+                            <span class="text-gray-500">(点我发音)</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 mt-4">
+                        <button id="step-btn-1" class="bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-600 transform hover:-translate-y-1 transition">🚾 坐下</button>
+                        <button id="step-btn-2" class="bg-green-500 text-white p-3 rounded-lg shadow-md hover:bg-green-600 transform hover:-translate-y-1 transition">💦 冲水</button>
+                        <button id="step-btn-3" class="bg-pink-500 text-white p-3 rounded-lg shadow-md hover:bg-pink-600 transform hover:-translate-y-1 transition">🧼 洗手</button>
+                    </div>
+                </div>
+
+                <!-- 音乐环节 -->
+                <div id="music-content" class="tab-content hidden fade-in">
+                    <!-- 内容与之前版本相同 -->
+                    <div class="bg-white rounded-lg shadow p-6 text-center">
+                        <div class="text-6xl mb-4 animate-bounce">🎶</div>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">上厕所儿歌</h2>
+                        <p class="text-gray-500 mb-6">点一下按钮，跟着音乐唱起来！</p>
+                        <button id="music-toggle" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full shadow-lg text-2xl">▶️ 播放</button>
+                    </div>
+                </div>
+
+                <!-- 绘本故事环节 -->
+                <div id="storybook-content" class="tab-content hidden fade-in">
+                     <!-- 内容与之前版本相同 -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <div id="storybook-display" class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-400"></div>
+                        <div class="p-4">
+                            <p id="storybook-text" class="text-center text-gray-700 h-12"></p>
+                            <div class="flex justify-between items-center mt-2">
+                                <button id="prev-page" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">上一页</button>
+                                <button id="read-aloud" class="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-2 px-4">🔊 朗读</button>
+                                <button id="next-page" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">下一页</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AR魔法秀 -->
+                <div id="ar-content" class="tab-content hidden fade-in">
+                    <div class="bg-white rounded-lg shadow p-4 text-center">
+                        <model-viewer src="https://cdn.glitch.global/66a642ac-9954-4217-93c6-262135f5250c/Rabbit.glb?v=1680186033102" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" alt="一只可爱的3D卡通兔子" camera-orbit="-30deg 75deg 1.5m" field-of-view="30deg">
+                        </model-viewer>
+                        <h2 class="text-xl font-bold text-gray-800 mt-4">AR 使用方法</h2>
+                        <p class="text-gray-600 mt-2 text-sm leading-relaxed">
+                            1. 点击右下角的 <b>[AR]</b> 图标。<br>
+                            2. 将手机摄像头对准您面前的平坦地面。<br>
+                            3. 轻轻移动手机，当看到小兔子时，点击屏幕将它放置在您的世界里！
+                        </p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // --- 脚本基本与上一版相同，仅需确保tab切换逻辑能处理新tab ---
+        const coverPage = document.getElementById('cover-page');
+        const mainContent = document.getElementById('main-content');
+        const startButton = document.getElementById('start-button');
+        
+        const tabs = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        let synth;
+        let musicPlaying = false;
+        let musicOscillator;
+        let audioContext;
+
+        const storybookPages = [
+            { emoji: '😟', text: '小兔子肚子咕噜咕噜，但是他有点害怕去厕所。', bgColor: 'bg-red-100' },
+            { emoji: '🚽➡️🐰', text: '妈妈鼓励他：“别怕，我陪你一起去认识新朋友！”', bgColor: 'bg-blue-100' },
+            { emoji: '💦🧼✨', text: '小兔子学会了冲水和洗手，感觉自己真棒！', bgColor: 'bg-green-100' },
+            { emoji: '😄🏆', text: '从那以后，小兔子再也不怕上厕所，还得到了“干净小超人”徽章！', bgColor: 'bg-yellow-100' }
+        ];
+        let currentPage = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            try { synth = window.speechSynthesis; } catch (e) { console.error("Speech Synthesis not supported", e); }
+            try { audioContext = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { console.error("Web Audio API not supported", e); }
+            setupEventListeners();
+            renderStorybookPage();
+        });
+
+        function setupEventListeners() {
+            startButton.addEventListener('click', () => {
+                coverPage.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                mainContent.classList.add('fade-in');
+            });
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const target = tab.dataset.tab;
+                    tabContents.forEach(content => {
+                        content.classList.toggle('hidden', content.id !== `${target}-content`);
+                    });
+                });
+            });
+            
+            document.getElementById('step-btn-1').addEventListener('click', () => updateLearningStep(1));
+            document.getElementById('step-btn-2').addEventListener('click', () => updateLearningStep(2));
+            document.getElementById('step-btn-3').addEventListener('click', () => updateLearningStep(3));
+            document.getElementById('music-toggle').addEventListener('click', toggleMusic);
+            document.getElementById('prev-page').addEventListener('click', () => changePage(-1));
+            document.getElementById('next-page').addEventListener('click', () => changePage(1));
+            document.getElementById('read-aloud').addEventListener('click', readCurrentPage);
+        }
+
+        function speak(text, lang = 'en-US') {
+            if (!synth) { alert('抱歉，您的浏览器不支持语音朗读功能。'); return; }
+            if (synth.speaking) { synth.cancel(); }
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = lang;
+            utterance.pitch = 1.2;
+            utterance.rate = 0.9;
+            synth.speak(utterance);
+        }
+        
+        function playSound(type) {
+            if (!audioContext) return;
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            if (type === 'flush') {
+                oscillator.type = 'whitenoise';
+                gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 1);
+            } else if (type === 'wash') {
+                oscillator.type = 'pinknoise';
+                 gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.5);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 1.5);
+            }
+        }
+
+        function updateLearningStep(step) {
+            const display = document.getElementById('animation-display');
+            const title = document.getElementById('step-title');
+            const text = document.getElementById('step-text');
+
+            switch(step) {
+                case 1:
+                    display.innerHTML = '🚾';
+                    title.textContent = '步骤2: 坐上马桶';
+                    text.textContent = '找到小马桶，稳稳地坐上去。';
+                    speak('Sit down');
+                    break;
+                case 2:
+                    display.innerHTML = '💦';
+                    title.textContent = '步骤3: 按下冲水键';
+                    text.textContent = '哗啦啦，脏东西都不见啦！';
+                    speak('Flush');
+                    playSound('flush');
+                    break;
+                case 3:
+                    display.innerHTML = '🧼';
+                    title.textContent = '步骤4: 清洁小手';
+                    text.textContent = '用泡泡把小手洗得干干净净。';
+                    speak('Wash hands');
+                    playSound('wash');
+                    break;
+            }
+        }
+
+        function toggleMusic() {
+            if (!audioContext) { alert('抱歉，您的浏览器不支持音频播放。'); return; }
+            const button = document.getElementById('music-toggle');
+            musicPlaying = !musicPlaying;
+
+            if (musicPlaying) {
+                button.innerHTML = '⏸️ 暂停';
+                const notes = [261, 261, 392, 392, 440, 440, 392, 349, 349, 329, 329, 293, 293, 261];
+                let noteTime = audioContext.currentTime;
+                musicOscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                musicOscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                gainNode.gain.value = 0.1;
+                notes.forEach(note => {
+                    musicOscillator.frequency.setValueAtTime(note, noteTime);
+                    noteTime += 0.4;
+                });
+                musicOscillator.start();
+                musicOscillator.stop(noteTime);
+                musicOscillator.onended = () => { if (musicPlaying) { musicPlaying = false; button.innerHTML = '▶️ 播放'; } };
+            } else {
+                button.innerHTML = '▶️ 播放';
+                if (musicOscillator) { musicOscillator.stop(); }
+            }
+        }
+
+        function renderStorybookPage() {
+            const page = storybookPages[currentPage];
+            const display = document.getElementById('storybook-display');
+            const text = document.getElementById('storybook-text');
+            display.className = `w-full h-56 flex items-center justify-center text-6xl ${page.bgColor}`;
+            display.innerHTML = page.emoji;
+            text.textContent = page.text;
+            document.getElementById('prev-page').disabled = currentPage === 0;
+            document.getElementById('next-page').disabled = currentPage === storybookPages.length - 1;
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 0 && newPage < storybookPages.length) {
+                currentPage = newPage;
+                renderStorybookPage();
+            }
+        }
+
+        function readCurrentPage() {
+            const pageText = storybookPages[currentPage].text;
+            speak(pageText, 'zh-CN');
+        }
+    </script>
+</body>
+</html>
+�
