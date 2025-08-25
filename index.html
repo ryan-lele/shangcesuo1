@@ -147,21 +147,22 @@
                 <!-- AR魔法秀 -->
                 <div id="ar-content" class="tab-content hidden fade-in">
                     <div class="bg-white rounded-lg shadow p-4 text-center">
-                        <model-viewer
-                            src="https://cdn.glitch.global/66a642ac-9954-4217-93c6-262135f5250c/Rabbit.glb?v=1680186033102"
-                            ios-src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/model.usdz"
-                            ar
-                            ar-modes="webxr scene-viewer quick-look"
-                            camera-controls
-                            shadow-intensity="1"
-                            alt="一只可爱的3D卡通兔子"
-                            camera-orbit="-30deg 75deg 1.5m"
-                            field-of-view="30deg">
-                            
-                            <button slot="ar-button" id="ar-button" class="p-2">
-                                <img src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/apple_ar_icon.png" alt="AR" class="w-8 h-8">
-                            </button>
-                        </model-viewer>
+                      <model-viewer
+    src="https://cdn.glitch.global/66a642ac-9954-4217-93c6-262135f5250c/Rabbit.glb?v=1680186033102"
+    ios-src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/model.usdz"
+    ar
+    ar-scale="fixed"
+    ar-modes="webxr scene-viewer quick-look"
+    camera-controls
+    shadow-intensity="1"
+    alt="一只可爱的3D卡通兔子"
+    camera-orbit="-30deg 75deg 1.5m"
+    field-of-view="30deg">
+    
+    <button slot="ar-button" id="ar-button" class="p-2">
+        <img src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/apple_ar_icon.png" alt="AR" class="w-8 h-8">
+    </button>
+</model-viewer>
 
                         <h2 class="text-xl font-bold text-gray-800 mt-4">AR 使用方法</h2>
                         <p class="text-gray-600 mt-2 text-sm leading-relaxed">
@@ -351,4 +352,5 @@
     </script>
 </body>
 </html>
+
 
