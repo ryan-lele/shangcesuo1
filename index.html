@@ -50,6 +50,21 @@
             background-color: #e0f2fe; /* sky-100 */
             border-radius: 0.5rem;
         }
+        /* 自定义AR按钮样式 */
+        #ar-button {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        #ar-button:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="bg-amber-50 flex items-center justify-center min-h-screen">
@@ -80,7 +95,7 @@
             <nav class="flex justify-around bg-gray-100 p-2 shadow-inner">
                 <button data-tab="learning" class="tab-button active flex-1 py-2 px-2 rounded-full font-semibold text-xs">🧻 学习环节</button>
                 <button data-tab="music" class="tab-button flex-1 py-2 px-2 rounded-full font-semibold text-xs">🎶 上厕所儿歌</button>
-                <button data-tab="storybook" class="tab-button flex-1 py-2 px-2 rounded-full font-semibold text-xs">� 绘本故事</button>
+                <button data-tab="storybook" class="tab-button flex-1 py-2 px-2 rounded-full font-semibold text-xs">📖 绘本故事</button>
                 <button data-tab="ar" class="tab-button flex-1 py-2 px-2 rounded-full font-semibold text-xs">🪄 AR魔法秀</button>
             </nav>
 
@@ -106,7 +121,6 @@
 
                 <!-- 音乐环节 -->
                 <div id="music-content" class="tab-content hidden fade-in">
-                    <!-- 内容与之前版本相同 -->
                     <div class="bg-white rounded-lg shadow p-6 text-center">
                         <div class="text-6xl mb-4 animate-bounce">🎶</div>
                         <h2 class="text-2xl font-bold text-gray-800 mb-2">上厕所儿歌</h2>
@@ -117,7 +131,6 @@
 
                 <!-- 绘本故事环节 -->
                 <div id="storybook-content" class="tab-content hidden fade-in">
-                     <!-- 内容与之前版本相同 -->
                     <div class="bg-white rounded-lg shadow overflow-hidden">
                         <div id="storybook-display" class="w-full h-56 bg-gray-200 flex items-center justify-center text-gray-400"></div>
                         <div class="p-4">
@@ -134,11 +147,25 @@
                 <!-- AR魔法秀 -->
                 <div id="ar-content" class="tab-content hidden fade-in">
                     <div class="bg-white rounded-lg shadow p-4 text-center">
-                        <model-viewer src="https://cdn.glitch.global/66a642ac-9954-4217-93c6-262135f5250c/Rabbit.glb?v=1680186033102" ar ar-modes="webxr scene-viewer quick-look" camera-controls shadow-intensity="1" alt="一只可爱的3D卡通兔子" camera-orbit="-30deg 75deg 1.5m" field-of-view="30deg">
+                        <model-viewer
+                            src="https://cdn.glitch.global/66a642ac-9954-4217-93c6-262135f5250c/Rabbit.glb?v=1680186033102"
+                            ios-src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/model.usdz"
+                            ar
+                            ar-modes="webxr scene-viewer quick-look"
+                            camera-controls
+                            shadow-intensity="1"
+                            alt="一只可爱的3D卡通兔子"
+                            camera-orbit="-30deg 75deg 1.5m"
+                            field-of-view="30deg">
+                            
+                            <button slot="ar-button" id="ar-button" class="p-2">
+                                <img src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/apple_ar_icon.png" alt="AR" class="w-8 h-8">
+                            </button>
                         </model-viewer>
+
                         <h2 class="text-xl font-bold text-gray-800 mt-4">AR 使用方法</h2>
                         <p class="text-gray-600 mt-2 text-sm leading-relaxed">
-                            1. 点击右下角的 <b>[AR]</b> 图标。<br>
+                            1. 点击模型上的 <b>AR</b> 图标。<br>
                             2. 将手机摄像头对准您面前的平坦地面。<br>
                             3. 轻轻移动手机，当看到小兔子时，点击屏幕将它放置在您的世界里！
                         </p>
@@ -149,7 +176,7 @@
     </div>
 
     <script>
-        // --- 脚本基本与上一版相同，仅需确保tab切换逻辑能处理新tab ---
+        // --- 脚本与上一版完全相同，无需修改 ---
         const coverPage = document.getElementById('cover-page');
         const mainContent = document.getElementById('main-content');
         const startButton = document.getElementById('start-button');
@@ -318,4 +345,3 @@
     </script>
 </body>
 </html>
-�
