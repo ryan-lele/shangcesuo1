@@ -148,33 +148,35 @@
                 <div id="ar-content" class="tab-content hidden fade-in">
                     <div class="bg-white rounded-lg shadow p-4 text-center">
                       <model-viewer
-    src="https://cdn.glitch.global/66a642ac-9954-4217-93c6-262135f5250c/Rabbit.glb?v=1680186033102"
-    ios-src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/model.usdz"
-    ar
-    ar-scale="fixed"
-    ar-modes="webxr scene-viewer quick-look"
-    camera-controls
-    shadow-intensity="1"
-    alt="一只可爱的3D卡通兔子"
-    camera-orbit="-30deg 75deg 1.5m"
-    field-of-view="30deg">
-    
-    <button slot="ar-button" id="ar-button" class="p-2">
-        <img src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/apple_ar_icon.png" alt="AR" class="w-8 h-8">
-    </button>
-</model-viewer>
+                          src="https://cdn.glitch.global/66a642ac-9954-4217-93c6-262135f5250c/Rabbit.glb?v=1680186033102"
+                          ios-src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/model.usdz"
+                          ar
+                          ar-scale="auto"
+                          ar-modes="webxr scene-viewer quick-look"
+                          camera-controls
+                          shadow-intensity="1"
+                          alt="一只可爱的3D卡通兔子"
+                          camera-orbit="-30deg 75deg 1.5m"
+                          min-camera-orbit="auto auto 0.5m"
+                          field-of-view="30deg">
+                          
+                          <button slot="ar-button" id="ar-button" class="p-2">
+                              <img src="https://raw.githubusercontent.com/ryan-lele/shangcesuo1/main/apple_ar_icon.png" alt="AR" class="w-8 h-8">
+                          </button>
+                      </model-viewer>
 
                         <h2 class="text-xl font-bold text-gray-800 mt-4">AR 使用方法</h2>
                         <p class="text-gray-600 mt-2 text-sm leading-relaxed">
                             1. 点击模型上的 <b>AR</b> 图标。<br>
                             2. 将手机摄像头对准您面前的平坦地面。<br>
-                            3. 轻轻移动手机，当看到小鸟子时，点击屏幕将它放置在您的世界里！还可以缩放移动！录屏拍照！
+                            3. 轻轻移动手机，当看到小鸟时，点击屏幕将它放置在您的世界里！<br>
+                            4. <b>重要提示：</b>落地后，请<b>用双指在屏幕上放大</b>，把它变成您喜欢的大小！还可以拍照录屏分享！
                         </p>
                     </div>
                 </div>
                  <!-- 晚安故事按钮 -->
                 <div class="mt-6 text-center">
-                    <a href="./1.mp4"" target="_blank" rel="noopener noreferrer" class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
+                    <a href="./1.mp4" target="_blank" rel="noopener noreferrer" class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition hover:scale-105">
                         🌙 晚安故事
                     </a>
                 </div>
@@ -283,7 +285,7 @@
                     speak('Sit down');
                     break;
                 case 2:
-                    display.innerHTML = '💦';
+                    display.innerHTML = '�';
                     title.textContent = '步骤3: 按下冲水键';
                     text.textContent = '哗啦啦，脏东西都不见啦！';
                     speak('Flush');
@@ -352,6 +354,4 @@
     </script>
 </body>
 </html>
-
-
-
+�
